@@ -178,20 +178,14 @@ async function handleSend() {
   spinner.style.display = 'inline-block';
 
   try {
-   if (IS_CONFIGURED) {
-  // ── Real send via EmailJS ──
-  await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-    from_name:  name,
-    from_email: email,
-    message:    msg,
-    name:       name,
-    email:      email,
-    to_name:    'Dipson',
-  });
-} else {
-      // ── Demo mode (no keys set) ──
-      await new Promise(r => setTimeout(r, 1200));
-    }
+ await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+  from_name:  name,
+  from_email: email,
+  message:    msg,
+  name:       name,
+  email:      email,
+  to_name:    'Dipson',
+});
 
     showFeedback(feedback, 'success', `✓ Message sent, ${name}! I'll be in touch soon.`);
     document.getElementById('name').value  = '';
