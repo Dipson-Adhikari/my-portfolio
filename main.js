@@ -4,12 +4,7 @@ const EMAILJS_PUBLIC_KEY  = 'qUtnY6KaG_46JKwyD';
 const EMAILJS_SERVICE_ID  = 'service_zenith';
 const EMAILJS_TEMPLATE_ID = 'template_55wrrjq';
 
-const IS_CONFIGURED =
-  EMAILJS_PUBLIC_KEY  !== 'qUtnY6KaG_46JKwyD' &&
-  EMAILJS_SERVICE_ID  !== 'service_zenith' &&
-  EMAILJS_TEMPLATE_ID !== 'template_55wrrjq';
-
-if (IS_CONFIGURED) emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+emailjs.init('qUtnY6KaG_46JKwyD');
 
 //Theme
 const root = document.documentElement;
