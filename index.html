@@ -4,25 +4,71 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dipson Adhikari — Designer & Developer</title>
+  <meta name="theme-color" content="#1b1e4a" />
+  <meta name="description" content="Portfolio of Dipson Adhikari, a designer and front-end developer based in Kathmandu." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=Press+Start+2P&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <link rel="stylesheet" href="style.css" />
+  <noscript><style>#loader{display:none!important}body.loading{overflow:auto!important}.pop-in,.sp,.sk{opacity:1!important;animation:none!important}</style></noscript>
 </head>
-<body>
+<body class="loading">
 
-  <!-- ── PAGE LOADER ── -->
-  <div id="loader">
-    <div class="loader-box">
-      <div class="loader-initials">
-        <span>D</span><span>A</span>
+  <!-- ══ GAME LOADING SCREEN ══ -->
+  <div id="loader" role="status" aria-live="polite">
+    <div class="shutter shutter-top"></div>
+    <div class="shutter shutter-bottom"></div>
+    <canvas id="star-canvas"></canvas>
+    <div class="scanlines"></div>
+
+    <div class="loader-content">
+      <p class="ld-player">PLAYER 1</p>
+
+      <h1 class="ld-title" data-text="DIPSON ADHIKARI">DIPSON ADHIKARI</h1>
+      <p class="ld-sub">DESIGNER &amp; DEVELOPER</p>
+
+      <div class="ld-hud">
+        <div class="ld-row">
+          <span class="ld-label">LOADING WORLD 1-1</span>
+          <span class="ld-percent" id="ldPercent">000%</span>
+        </div>
+
+        <div class="ld-track" id="ldTrack">
+          <div class="ld-segments" id="ldSegments"></div>
+
+          <!-- pixel runner -->
+          <div class="runner" id="runner">
+            <svg viewBox="0 0 10 12" shape-rendering="crispEdges" aria-hidden="true">
+              <rect x="2" y="0" width="6" height="2" fill="#d21319"/>
+              <rect x="2" y="2" width="6" height="3" fill="#ffd7b0"/>
+              <rect x="6" y="3" width="1" height="1" fill="#1b1e4a"/>
+              <rect x="2" y="5" width="6" height="4" fill="#afaea2"/>
+              <rect x="1" y="5" width="1" height="3" fill="#ffd7b0"/>
+              <rect x="8" y="5" width="1" height="3" fill="#ffd7b0"/>
+              <g class="leg-a">
+                <rect x="1" y="9" width="3" height="3" fill="#d21319"/>
+                <rect x="6" y="9" width="3" height="2" fill="#d21319"/>
+              </g>
+              <g class="leg-b">
+                <rect x="3" y="9" width="4" height="3" fill="#d21319"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        <p class="ld-tip" id="ldTip">Booting up…</p>
       </div>
-      <div class="loader-track">
-        <div class="loader-fill"></div>
-      </div>
+
+      <button class="ld-start" id="ldStart" type="button" hidden>
+        <span class="arrow">▶</span> PRESS START
+      </button>
+      <p class="ld-hint" id="ldHint" hidden>Click, tap or press any key</p>
     </div>
   </div>
+
+  <!-- ── SCROLL XP BAR ── -->
+  <div id="xp-bar"></div>
 
   <!-- ── CURSOR GLOW ── -->
   <div id="cursor-glow"></div>
@@ -30,7 +76,7 @@
   <!-- ── NAV ── -->
   <nav id="navbar">
     <div class="nav-inner">
-      <span class="nav-logo">Portfolio</span>
+      <a href="#hero" class="nav-logo"><span class="logo-px">DA</span> Portfolio</a>
       <ul class="nav-links">
         <li><a href="#hero"    class="nav-link">Home</a></li>
         <li><a href="#about"   class="nav-link">About</a></li>
@@ -61,51 +107,43 @@
       <div class="container hero-grid">
 
         <div class="hero-copy">
-          <p class="eyebrow pop-in" style="--d:.4s">
-            <span class="eyebrow-line"></span> Available for projects
+          <p class="eyebrow pop-in" style="--d:.2s">
+            <span class="eyebrow-line"></span> Player 1 · Available for projects
           </p>
-          <h1 class="pop-in" style="--d:.55s">
-            Myself <em>Dipson</em><br>Adhikari
+          <h1 class="hero-title pop-in" style="--d:.35s">
+            Hi, I'm <em>Dipson</em><br>Adhikari
           </h1>
-          <p class="hero-sub pop-in" style="--d:.72s">
+          <p class="hero-sub pop-in" style="--d:.5s">
             I'm a designer &amp; front-end developer who turns complex problems
             into clean, intuitive interfaces.
           </p>
-          <div class="btn-row pop-in" style="--d:.88s">
+          <div class="btn-row pop-in" style="--d:.65s">
             <a href="#contact" class="btn btn-primary">Get in Touch</a>
             <a href="#about"   class="btn btn-outline">About Me</a>
           </div>
         </div>
 
-        <div class="hero-visual pop-in" style="--d:.72s">
+        <div class="hero-visual pop-in" style="--d:.5s">
           <div class="avatar-wrap">
-
-            <!-- Orbit ring with dots -->
             <div class="orbit-outer">
               <span class="orbit-dot"></span>
               <span class="orbit-dot"></span>
               <span class="orbit-dot"></span>
             </div>
-
-            <!-- Dashed ring -->
             <div class="orbit-dashed"></div>
 
-            <!-- Main circle -->
             <div class="avatar-circle">
               <span class="avatar-letters">DA</span>
             </div>
 
-            <!-- Floating skill tags -->
-            <div class="ftag ftag-1 pop-in" style="--d:1.1s">UI/UX</div>
-            <div class="ftag ftag-2 pop-in" style="--d:1.25s">React</div>
-            <div class="ftag ftag-3 pop-in" style="--d:1.4s">Figma</div>
+            <div class="ftag ftag-1 pop-in" style="--d:.9s">UI/UX</div>
+            <div class="ftag ftag-2 pop-in" style="--d:1.05s">React</div>
+            <div class="ftag ftag-3 pop-in" style="--d:1.2s">Figma</div>
 
-            <!-- Badge -->
-            <div class="badge pop-in" style="--d:1.55s">
+            <div class="badge pop-in" style="--d:1.35s">
               <span class="badge-dot"></span>
               <span class="badge-text">Open to work</span> · 2026
             </div>
-
           </div>
         </div>
 
@@ -117,7 +155,7 @@
       <div class="container about-grid">
 
         <div class="about-text">
-          <p class="label sp">About</p>
+          <p class="label sp">Level 01 · About</p>
           <h2 class="sp" style="--d:.08s">A little about me</h2>
           <p class="sp" style="--d:.16s">
             I'm a multidisciplinary designer and developer based in Kathmandu,
@@ -143,14 +181,17 @@
           <div class="stat-card sp" style="--d:.10s">
             <div class="stat-num" data-count="2">0</div>
             <div class="stat-label">Years of experience</div>
+            <div class="xp"><i style="--w:30%"></i></div>
           </div>
           <div class="stat-card sp" style="--d:.22s">
             <div class="stat-num" data-count="12">0</div>
             <div class="stat-label">Projects delivered</div>
+            <div class="xp"><i style="--w:65%"></i></div>
           </div>
           <div class="stat-card sp" style="--d:.34s">
             <div class="stat-num" data-count="8">0</div>
             <div class="stat-label">Happy clients worldwide</div>
+            <div class="xp"><i style="--w:50%"></i></div>
           </div>
         </div>
 
@@ -162,7 +203,7 @@
       <div class="container contact-grid">
 
         <div class="contact-info">
-          <p class="label sp">Contact</p>
+          <p class="label sp">Level 02 · Contact</p>
           <h2 class="sp" style="--d:.08s">Let's build something<br>together</h2>
           <p class="sp" style="--d:.16s">
             Have a project in mind or just want to say hi?
